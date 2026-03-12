@@ -1,0 +1,14 @@
+{
+  "definitions": [{
+    "title": "Category List",
+    "id": "category-list",
+    "model": "category-list",
+    "plugins": {
+      "da": {
+        "type": "key-value-block"
+      }
+    }
+  }],
+  "models": [],
+  "filters": []
+}
