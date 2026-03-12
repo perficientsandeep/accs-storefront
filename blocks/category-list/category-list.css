@@ -1,0 +1,90 @@
+/* Container for the category navigation */
+.category-list {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.category-list .category-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+/* Main Top-Level Menu Items */
+.category-list .category-items > li {
+    position: relative;
+    padding: 15px 0;
+}
+
+.category-list .category-items > li > a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    padding: 10px 15px;
+    transition: color 0.2s ease;
+}
+
+.category-list .category-items > li:hover > a {
+    color: #ff5a00; /* Magento Orange or your brand color */
+}
+
+/* Dropdown Menu (Subcategories) */
+.category-list .category-items ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+/* Show Subcategories on Hover */
+.category-list .category-items li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Subcategory Links */
+.category-list .category-items ul li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.category-list .category-items ul li a:hover {
+    background-color: #f8f8f8;
+    color: #000;
+}
+
+/* Mobile basic support */
+@media (max-width: 768px) {
+    .category-list .category-items {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .category-list .category-items ul {
+        position: static;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        padding-left: 20px;
+        display: none; /* Hide sub-items on mobile until clicked */
+    }
+}
