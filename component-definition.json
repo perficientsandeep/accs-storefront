@@ -549,6 +549,16 @@
               "type": "key-value-block"
             }
           }
+        },
+        {
+          "title": "Category List",
+          "id": "category-list",
+          "model": "category-list",
+          "plugins": {
+            "da": {
+              "type": "key-value-block"
+            }
+          }
         }
       ]
     },
