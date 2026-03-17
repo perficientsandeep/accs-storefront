@@ -21,5 +21,4 @@ export * from './transform-revoke-customer-token';
 export * from './transform-customer-data';
 export * from './transform-attributes-form';
 export * from './transform-create-customer';
-export * from './transform-adobe-commerce-optimizer';
 //# sourceMappingURL=index.d.ts.map

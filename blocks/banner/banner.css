@@ -1,0 +1,42 @@
+/* /blocks/banner/banner.css */
+.banner-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/7; /* adjust as needed */
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: auto 1rem 1rem 1rem;
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    padding: .75rem 1rem;
+    border-radius: 6px;
+    max-width: min(48ch, 90%);
+}
+
+.theme-light .banner-overlay {
+    background: rgba(255,255,255,.7);
+    color: #111;
+}
+
+.banner-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    transition: transform .4s ease;
+}

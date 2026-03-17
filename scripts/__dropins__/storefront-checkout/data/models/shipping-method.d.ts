@@ -12,7 +12,6 @@ export type ShippingMethod = {
     value: string;
     amountExclTax?: Money;
     amountInclTax?: Money;
-    originalAmount?: Money;
 };
 export {};
 //# sourceMappingURL=shipping-method.d.ts.map

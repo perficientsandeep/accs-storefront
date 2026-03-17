@@ -1,14 +1,19 @@
+import { getHeaders } from '@dropins/tools/lib/aem/configs.js';
 import { initializers } from '@dropins/tools/initializer.js';
 import { Image, provider as UI } from '@dropins/tools/components.js';
-import { initialize, setEndpoint, fetchProductData } from '@dropins/storefront-pdp/api.js';
+import {
+  initialize,
+  setEndpoint,
+  setFetchGraphQlHeaders,
+  fetchProductData,
+} from '@dropins/storefront-pdp/api.js';
 import { isAemAssetsEnabled, tryGenerateAemAssetsOptimizedUrl } from '@dropins/tools/lib/aem/assets.js';
 import { initializeDropin } from './index.js';
 import {
-  CS_FETCH_GRAPHQL,
   fetchPlaceholders,
+  commerceEndpointWithQueryParams,
   getOptionsUIDsFromUrl,
   getProductSku,
-  IS_UE,
   loadErrorPage,
   preloadFile,
 } from '../commerce.js';
@@ -73,25 +78,26 @@ function preloadPDPAssets() {
 }
 
 await initializeDropin(async () => {
-  // Inherit Fetch GraphQL Instance (Catalog Service)
-  setEndpoint(CS_FETCH_GRAPHQL);
-
   // Preload PDP assets immediately when this module is imported
   preloadPDPAssets();
 
-  // Fetch product data
+  // Set Fetch Endpoint (Service)
+  setEndpoint(await commerceEndpointWithQueryParams());
+
+  // Set Fetch Headers (Service)
+  setFetchGraphQlHeaders((prev) => ({ ...prev, ...getHeaders('cs') }));
+
   const sku = getProductSku();
   const optionsUIDs = getOptionsUIDsFromUrl();
-
-  // If we cannot find a sku, and we are not in UE, there's a problem.
-  if (!sku && !IS_UE) {
-    return loadErrorPage();
-  }
 
   const [product, labels] = await Promise.all([
     fetchProductData(sku, { optionsUIDs, skipTransform: true }).then(preloadImageMiddleware),
     fetchPlaceholders('placeholders/pdp.json'),
   ]);
+
+  if (!product?.sku) {
+    return loadErrorPage();
+  }
 
   const langDefinitions = {
     default: {

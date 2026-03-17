@@ -4,6 +4,7 @@ import {
   loadFooter,
   decorateButtons,
   decorateIcons,
+  decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
   waitForFirstImage,
@@ -18,9 +19,6 @@ import {
   applyTemplates,
   decorateLinks,
   loadErrorPage,
-  decorateSections,
-  IS_UE,
-  IS_DA,
 } from './commerce.js';
 
 /**
@@ -32,10 +30,6 @@ function buildHeroBlock(main) {
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    // Check if h1 or picture is already inside a hero block
-    if (h1.closest('.hero') || picture.closest('.hero')) {
-      return; // Don't create a duplicate hero block
-    }
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
@@ -60,8 +54,8 @@ async function loadFonts() {
  */
 function buildAutoBlocks(main) {
   try {
-    // auto load `*/fragments/*` references
-    const fragments = [...main.querySelectorAll('a[href*="/fragments/"]')].filter((f) => !f.closest('.fragment'));
+    // auto block `*/fragments/*` references
+    const fragments = main.querySelectorAll('a[href*="/fragments/"]');
     if (fragments.length > 0) {
       // eslint-disable-next-line import/no-cycle
       import('../blocks/fragment/fragment.js').then(({ loadFragment }) => {
@@ -69,7 +63,7 @@ function buildAutoBlocks(main) {
           try {
             const { pathname } = new URL(fragment.href);
             const frag = await loadFragment(pathname);
-            fragment.parentElement.replaceWith(...frag.children);
+            fragment.parentElement.replaceWith(frag.firstElementChild);
           } catch (error) {
             // eslint-disable-next-line no-console
             console.error('Fragment loading failed', error);
@@ -78,7 +72,7 @@ function buildAutoBlocks(main) {
       });
     }
 
-    if (!main.querySelector('.hero')) buildHeroBlock(main);
+    buildHeroBlock(main);
   } catch (error) {
     console.error('Auto Blocking failed', error);
   }
@@ -135,8 +129,6 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  loadHeader(doc.querySelector('header'));
-
   const main = doc.querySelector('main');
   await loadSections(main);
 
@@ -144,6 +136,7 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
+  loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
   loadCommerceLazy();
@@ -167,16 +160,10 @@ async function loadPage() {
   loadDelayed();
 }
 
-// UE Editor support before page load
-if (IS_UE) {
-  // eslint-disable-next-line import/no-unresolved
-  await import(`${window.hlx.codeBasePath}/scripts/ue.js`).then(({ default: ue }) => ue());
-}
-
 loadPage();
 
 (async function loadDa() {
-  if (!IS_DA) return;
+  if (!new URL(window.location.href).searchParams.get('dapreview')) return;
   // eslint-disable-next-line import/no-unresolved
   import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage));
 }());

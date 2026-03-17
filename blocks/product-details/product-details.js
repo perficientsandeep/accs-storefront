@@ -72,10 +72,7 @@ function updateAddToCartButtonText(addToCartInstance, inCart, labels) {
 }
 
 export default async function decorate(block) {
-  const eventProduct = events.lastPayload('pdp/data') ?? null;
-  // bug: the pdp sends an object with event data even if product is not found.
-  const product = eventProduct?.sku ? eventProduct : null;
-
+  const product = events.lastPayload('pdp/data') ?? null;
   const labels = await fetchPlaceholders();
 
   // Read itemUid from URL
@@ -145,7 +142,7 @@ export default async function decorate(block) {
 
   // Alert
   let inlineAlert = null;
-  const routeToWishlist = rootLink('/wishlist');
+  const routeToWishlist = '/wishlist';
 
   const [
     _galleryMobile,
@@ -498,7 +495,7 @@ function createMetaTag(property, content, type) {
 }
 
 function setMetaTags(product) {
-  if (!product?.sku) {
+  if (!product) {
     return;
   }
 

@@ -4,12 +4,12 @@ export interface PlaceNegotiableQuoteOrderProps extends OrderProps {
 }
 export interface PlaceNegotiableQuoteOrderResponse {
     data: {
-        placeNegotiableQuoteOrderV2?: {
+        placeNegotiableQuoteOrder?: {
             errors?: {
                 code: string;
                 message: string;
             }[];
-            order?: PlaceNegotiableQuoteOrderProps;
+            orderV2?: PlaceNegotiableQuoteOrderProps;
         };
     };
     errors?: {

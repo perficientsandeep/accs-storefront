@@ -1,14 +1,8 @@
 import { events } from '@dropins/tools/event-bus.js';
 import { render as pdpRender } from '@dropins/storefront-pdp/render.js';
-import {
-  setEndpoint,
-  fetchProductData,
-  initialize,
-  setProductConfigurationValues,
-  getProductConfigurationValues,
-  isProductConfigurationValid,
-} from '@dropins/storefront-pdp/api.js';
+import * as pdpApi from '@dropins/storefront-pdp/api.js';
 import { initializers } from '@dropins/tools/initializer.js';
+import { getHeaders } from '@dropins/tools/lib/aem/configs.js';
 import {
   InLineAlert,
   Icon,
@@ -27,7 +21,10 @@ import ProductQuantity from '@dropins/storefront-pdp/containers/ProductQuantity.
 // Initializers
 import '../../initializers/cart.js';
 
-import { fetchPlaceholders, CS_FETCH_GRAPHQL } from '../../commerce.js';
+import {
+  fetchPlaceholders,
+  commerceEndpointWithQueryParams,
+} from '../../commerce.js';
 
 import { loadCSS } from '../../aem.js';
 
@@ -66,10 +63,11 @@ export default async function createMiniPDP(cartItem, onUpdate, onClose) {
   };
 
   try {
-    // Inherit Fetch GraphQL Instance (Catalog Service)
-    setEndpoint(CS_FETCH_GRAPHQL);
+    // Configure PDP API endpoint and headers (same as main PDP initializer)
+    pdpApi.setEndpoint(await commerceEndpointWithQueryParams());
+    pdpApi.setFetchGraphQlHeaders((prev) => ({ ...prev, ...getHeaders('cs') }));
 
-    const product = await fetchProductData(sku, {
+    const product = await pdpApi.fetchProductData(sku, {
       optionsUIDs,
       skipTransform: true,
     });
@@ -79,7 +77,7 @@ export default async function createMiniPDP(cartItem, onUpdate, onClose) {
     }
 
     // Initialize PDP API with pre-selected options
-    await initializers.mountImmediately(initialize, {
+    await initializers.mountImmediately(pdpApi.initialize, {
       scope: 'modal',
       sku,
       optionsUIDs,
@@ -108,7 +106,7 @@ export default async function createMiniPDP(cartItem, onUpdate, onClose) {
     }
 
     // Set initial quantity using PDP API BEFORE rendering components
-    setProductConfigurationValues((prev) => ({
+    pdpApi.setProductConfigurationValues((prev) => ({
       ...prev,
       quantity: freshCartItem.quantity || 1,
     }), { scope: 'modal' });
@@ -221,8 +219,8 @@ export default async function createMiniPDP(cartItem, onUpdate, onClose) {
             }));
 
             // Get current product configuration
-            const values = getProductConfigurationValues({ scope: 'modal' });
-            const valid = isProductConfigurationValid({ scope: 'modal' });
+            const values = pdpApi.getProductConfigurationValues({ scope: 'modal' });
+            const valid = pdpApi.isProductConfigurationValid({ scope: 'modal' });
 
             if (!valid) {
               throw new Error('Please select all required options');

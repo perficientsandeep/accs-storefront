@@ -63,12 +63,6 @@ function getPurchaseHistory(storeViewCode) {
 export default async function decorate(block) {
   const labels = await fetchPlaceholders();
 
-  // Hide configuration rows if they exist
-  const children = [...block.children];
-  children.forEach((child) => {
-    child.style.display = 'none';
-  });
-
   // Configuration
   const { currentsku, recid } = readBlockConfig(block);
 
@@ -80,7 +74,6 @@ export default async function decorate(block) {
   `);
 
   const $list = fragment.querySelector('.recommendations__list');
-  const $wrapper = fragment.querySelector('.recommendations__wrapper');
 
   block.appendChild(fragment);
 
@@ -227,7 +220,7 @@ export default async function decorate(block) {
               });
             },
           },
-        })($wrapper),
+        })(block),
       ]);
     } finally {
       isLoading = false;

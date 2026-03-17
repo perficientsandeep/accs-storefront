@@ -1,13 +1,15 @@
+import { getHeaders } from '@dropins/tools/lib/aem/configs.js';
 import { initializers } from '@dropins/tools/initializer.js';
-import { initialize, setEndpoint } from '@dropins/storefront-recommendations/api.js';
+import { initialize, setEndpoint, setFetchGraphQlHeaders } from '@dropins/storefront-recommendations/api.js';
 import { initializeDropin } from './index.js';
-import { CS_FETCH_GRAPHQL, fetchPlaceholders } from '../commerce.js';
+import { fetchPlaceholders, commerceEndpointWithQueryParams } from '../commerce.js';
 
 await initializeDropin(async () => {
-  // Inherit Fetch GraphQL Instance (Catalog Service)
-  setEndpoint(CS_FETCH_GRAPHQL);
+  setEndpoint(await commerceEndpointWithQueryParams());
 
-  // Fetch placeholders
+  // Set Fetch Headers (Service)
+  setFetchGraphQlHeaders((prev) => ({ ...prev, ...getHeaders('cs') }));
+
   const labels = await fetchPlaceholders('placeholders/recommendations.json');
   const langDefinitions = {
     default: {
@@ -15,6 +17,5 @@ await initializeDropin(async () => {
     },
   };
 
-  // Initialize recommendations
   return initializers.mountImmediately(initialize, { langDefinitions });
 })();

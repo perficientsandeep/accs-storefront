@@ -28,7 +28,6 @@ export interface SignInProps {
     }) => Promise<void>;
     onErrorCallback?: (error?: unknown) => void;
     onSignUpLinkClick?: () => void;
-    apiErrorMessageOverride?: string;
 }
 export interface SignInFormProps extends SignInProps {
     setActiveComponent?: (componentName: activeComponentType) => void;

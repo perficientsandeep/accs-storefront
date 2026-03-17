@@ -8,8 +8,7 @@ export declare const categorizeProducts: (order: OrderDataModel) => {
             recipientName: string;
             message: string;
         };
-        giftWrappingAvailable: boolean;
-        giftWrappingPrice: import('../types').MoneyProps;
+        giftWrappingPrice: import('../types/index').MoneyProps;
         productGiftWrapping: {
             uid: string;
             design: string;
@@ -18,57 +17,57 @@ export declare const categorizeProducts: (order: OrderDataModel) => {
                 url: string;
                 label: string;
             };
-            price: import('../types').MoneyProps;
+            price: import('../types/index').MoneyProps;
         }[];
         taxCalculations: {
             includeAndExcludeTax: {
-                originalPrice: import('../types').MoneyProps;
-                baseOriginalPrice: import('../types').MoneyProps;
-                baseDiscountedPrice: import('../types').MoneyProps;
-                baseExcludingTax: import('../types').MoneyProps;
+                originalPrice: import('../types/index').MoneyProps;
+                baseOriginalPrice: import('../types/index').MoneyProps;
+                baseDiscountedPrice: import('../types/index').MoneyProps;
+                baseExcludingTax: import('../types/index').MoneyProps;
             };
             excludeTax: {
-                originalPrice: import('../types').MoneyProps;
-                baseOriginalPrice: import('../types').MoneyProps;
-                baseDiscountedPrice: import('../types').MoneyProps;
-                baseExcludingTax: import('../types').MoneyProps;
+                originalPrice: import('../types/index').MoneyProps;
+                baseOriginalPrice: import('../types/index').MoneyProps;
+                baseDiscountedPrice: import('../types/index').MoneyProps;
+                baseExcludingTax: import('../types/index').MoneyProps;
             };
             includeTax: {
-                singleItemPrice: import('../types').MoneyProps;
-                baseOriginalPrice: import('../types').MoneyProps;
-                baseDiscountedPrice: import('../types').MoneyProps;
+                singleItemPrice: import('../types/index').MoneyProps;
+                baseOriginalPrice: import('../types/index').MoneyProps;
+                baseDiscountedPrice: import('../types/index').MoneyProps;
             };
         };
-        productSalePrice: import('../types').MoneyProps;
-        status?: string;
-        currentReturnOrderQuantity?: number;
+        productSalePrice: import('../types/index').MoneyProps;
+        status?: string | undefined;
+        currentReturnOrderQuantity?: number | undefined;
         eligibleForReturn: boolean;
-        productSku?: string;
-        type?: string;
-        discounted?: boolean;
+        productSku?: string | undefined;
+        type?: string | undefined;
+        discounted?: boolean | undefined;
         id: string;
-        productName?: string;
-        productUrlKey?: string;
-        regularPrice?: import('../types').MoneyProps;
-        price: import('../types').MoneyProps;
-        product?: import('../data/models').OrderItemProductModel;
-        selectedOptions?: Array<{
+        productName?: string | undefined;
+        productUrlKey?: string | undefined;
+        regularPrice?: import('../types/index').MoneyProps | undefined;
+        price: import('../types/index').MoneyProps;
+        product?: import('../data/models').OrderItemProductModel | undefined;
+        selectedOptions?: {
             label: string;
             value: any;
-        }>;
+        }[] | undefined;
         thumbnail?: {
             label: string;
             url: string;
-        };
+        } | undefined;
         downloadableLinks: {
             count: number;
             result: string;
         } | null;
         prices: {
-            priceIncludingTax: import('../types').MoneyProps;
-            originalPrice: import('../types').MoneyProps;
-            originalPriceIncludingTax: import('../types').MoneyProps;
-            price: import('../types').MoneyProps;
+            priceIncludingTax: import('../types/index').MoneyProps;
+            originalPrice: import('../types/index').MoneyProps;
+            originalPriceIncludingTax: import('../types/index').MoneyProps;
+            price: import('../types/index').MoneyProps;
             discounts: [{
                 label: string;
                 amount: {
@@ -77,10 +76,10 @@ export declare const categorizeProducts: (order: OrderDataModel) => {
             }];
         };
         itemPrices: {
-            priceIncludingTax: import('../types').MoneyProps;
-            originalPrice: import('../types').MoneyProps;
-            originalPriceIncludingTax: import('../types').MoneyProps;
-            price: import('../types').MoneyProps;
+            priceIncludingTax: import('../types/index').MoneyProps;
+            originalPrice: import('../types/index').MoneyProps;
+            originalPriceIncludingTax: import('../types/index').MoneyProps;
+            price: import('../types/index').MoneyProps;
             discounts: [{
                 label: string;
                 amount: {
@@ -89,9 +88,9 @@ export declare const categorizeProducts: (order: OrderDataModel) => {
             }];
         };
         bundleOptions: Record<string, string> | null;
-        totalInclTax: import('../types').MoneyProps;
-        priceInclTax: import('../types').MoneyProps;
-        total: import('../types').MoneyProps;
+        totalInclTax: import('../types/index').MoneyProps;
+        priceInclTax: import('../types/index').MoneyProps;
+        total: import('../types/index').MoneyProps;
         configurableOptions: Record<string, string | number | boolean> | undefined;
         giftCard?: {
             senderName: string;
@@ -99,15 +98,15 @@ export declare const categorizeProducts: (order: OrderDataModel) => {
             recipientEmail: string;
             recipientName: string;
             message: string;
-        };
+        } | undefined;
         quantityCanceled: number;
         quantityInvoiced: number;
         quantityOrdered: number;
         quantityRefunded: number;
         quantityReturned: number;
         quantityShipped: number;
-        requestQuantity?: number;
-        returnableQuantity?: number;
+        requestQuantity?: number | undefined;
+        returnableQuantity?: number | undefined;
         quantityReturnRequested: number;
     }[];
     canceledItems: OrderItemModel[];

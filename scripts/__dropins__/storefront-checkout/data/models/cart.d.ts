@@ -6,7 +6,6 @@ export type CartShippingAddress = CartAddress & ShippingAddress & {
     sameAsBilling?: boolean;
 };
 export interface Cart {
-    type: 'cart';
     availablePaymentMethods?: PaymentMethod[];
     billingAddress?: CartAddress;
     email?: string;

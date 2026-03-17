@@ -17,8 +17,7 @@ import { customerShippingAddress, products } from "../../../fixtures";
  * - order -> https://github.com/adobe/commerce-events/blob/main/packages/storefront-events-sdk/src/types/schemas/order.ts
  */
 
-// Test is failing randomly on most of pr, created bug to fix and unskip https://jira.corp.adobe.com/browse/USF-3518
-it.skip("is sent on place order button click", { tags: "@skipSaas" }, () => {
+it("is sent on place order button click", { tags: "@skipSaas" }, () => {
   // add item to cart
   cy.visit(products.configurable.urlPathWithOptions);
   // add to cart

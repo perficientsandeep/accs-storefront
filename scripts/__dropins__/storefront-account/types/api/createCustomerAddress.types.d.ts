@@ -18,16 +18,11 @@ export interface CreateCustomerAddressResponse {
     data: {
         createCustomerAddress: {
             firstname: string;
-            uid: string;
         };
     };
     errors?: {
         message: string;
     }[];
-}
-export interface CreateCustomerAddressResult {
-    firstname: string;
-    uid: string;
 }
 interface Region {
     region_id: number;

@@ -1,11 +1,5 @@
-import { FormRef } from '../../types';
+import { FormRef } from '../../types/storefront-account';
 import { RefObject } from 'preact';
 
-type HTMLForm = {
-    name: string;
-    ref?: RefObject<FormRef>;
-};
-export declare function validateForm(form: HTMLForm, autoScrollOnError?: boolean): boolean;
-export declare function validateForms(forms: HTMLForm[]): boolean;
-export {};
+export declare function validateForm(formName: string, formRef: RefObject<FormRef>): boolean;
 //# sourceMappingURL=forms.d.ts.map

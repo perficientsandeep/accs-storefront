@@ -1,13 +1,12 @@
+import { getHeaders } from '@dropins/tools/lib/aem/configs.js';
 import { initializers } from '@dropins/tools/initializer.js';
-import { initialize, setEndpoint } from '@dropins/storefront-wishlist/api.js';
+import { initialize, setFetchGraphQlHeaders } from '@dropins/storefront-wishlist/api.js';
 import { initializeDropin } from './index.js';
-import { CORE_FETCH_GRAPHQL, fetchPlaceholders } from '../commerce.js';
+import { fetchPlaceholders } from '../commerce.js';
 
 await initializeDropin(async () => {
-  // Set Fetch GraphQL (Catalog Service)
-  setEndpoint(CORE_FETCH_GRAPHQL);
+  setFetchGraphQlHeaders(await getHeaders('wishlist'));
 
-  // Fetch placeholders
   const labels = await fetchPlaceholders('placeholders/wishlist.json');
   const langDefinitions = {
     default: {
@@ -15,7 +14,6 @@ await initializeDropin(async () => {
     },
   };
 
-  // Initialize wishlist
   return initializers.mountImmediately(initialize, {
     langDefinitions,
     isGuestWishlistEnabled: true,

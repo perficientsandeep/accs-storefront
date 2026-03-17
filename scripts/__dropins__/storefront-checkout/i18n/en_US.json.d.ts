@@ -64,23 +64,6 @@ declare const _default: {
       "emptyState": "No payment methods available",
       "title": "Payment"
     },
-    "PaymentOnAccount": {
-      "referenceNumberLabel": "Custom Reference Number",
-      "referenceNumberPlaceholder": "Enter custom reference number",
-      "referenceNumberHint": "",
-      "availableCreditLabel": "Available Credit",
-      "exceedLimitWarning": "The credit limit is {{creditLimit}}. It will be exceeded by {{exceededAmount}} with this order.",
-      "exceedLimitWarningPrefix": "The credit limit is",
-      "exceedLimitWarningMiddle": ". It will be exceeded by",
-      "exceedLimitWarningSuffix": "with this order.",
-      "exceedLimitError": "Payment On Account cannot be used for this order because your order amount exceeds your credit amount."
-    },
-    "PurchaseOrder": {
-      "missingReferenceNumberError": "Reference number is required",
-      "referenceNumberHint": "",
-      "referenceNumberLabel": "Custom Reference Number",
-      "referenceNumberPlaceholder": "Enter custom reference number"
-    },
     "PlaceOrder": {
       "button": "Place Order"
     },
@@ -88,12 +71,7 @@ declare const _default: {
       "button": "Try again",
       "contactSupport": "If you continue to have issues, please contact support.",
       "title": "We were unable to process your order",
-      "unexpected": "An unexpected error occurred while processing your order. Please try again later.",
-      "permissionDenied": "You do not have permission to complete checkout. Please contact your administrator for assistance."
-    },
-    "Quote": {
-      "permissionDenied": "You do not have permission to checkout with this quote.",
-      "dataError": "We were unable to retrieve the quote data. Please try again later."
+      "unexpected": "An unexpected error occurred while processing your order. Please try again later."
     },
     "ShippingMethods": {
       "cartSyncError": "We were unable to save your changes. Please try again later.",
@@ -101,13 +79,7 @@ declare const _default: {
       "title": "Shipping options"
     },
     "Summary": {
-      "Edit": "Edit",
-      "heading": "Your Cart ({count})"
-    },
-    "Addresses": {
-      "billToNewAddress": "Bill to new address",
-      "shippingAddressTitle": "Shipping address",
-      "billingAddressTitle": "Billing address"
+      "Edit": "Edit"
     },
     "TermsAndConditions": {
       "error": "Please accept the Terms and Conditions to continue.",

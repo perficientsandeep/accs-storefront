@@ -20,9 +20,6 @@ export interface getCustomerDataResponse {
             firstname: string;
             lastname: string;
             email: string;
-            group: {
-                uid: string;
-            };
         };
     };
     errors?: {

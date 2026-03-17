@@ -1,9 +1,9 @@
 import { events } from '@dropins/tools/event-bus.js';
 import { initializers } from '@dropins/tools/initializer.js';
-import { initialize, setEndpoint } from '@dropins/storefront-order/api.js';
+import { getHeaders } from '@dropins/tools/lib/aem/configs.js';
+import { initialize, setFetchGraphQlHeaders } from '@dropins/storefront-order/api.js';
 import { initializeDropin } from './index.js';
 import {
-  CORE_FETCH_GRAPHQL,
   fetchPlaceholders,
   checkIsAuthenticated,
   CUSTOMER_ORDER_DETAILS_PATH,
@@ -21,9 +21,6 @@ import {
 } from '../commerce.js';
 
 await initializeDropin(async () => {
-  // Set Fetch GraphQL (Core)
-  setEndpoint(CORE_FETCH_GRAPHQL);
-
   const { pathname, searchParams } = new URL(window.location.href);
   if (pathname.includes(CUSTOMER_ORDERS_PATH)) {
     return;
@@ -34,7 +31,8 @@ await initializeDropin(async () => {
   const orderNumber = searchParams.get('orderNumber');
   const isTokenProvided = orderRef && orderRef.length > 20;
 
-  // Fetch placeholders
+  setFetchGraphQlHeaders((prev) => ({ ...prev, ...getHeaders('order') }));
+
   const labels = await fetchPlaceholders('placeholders/order.json');
   const langDefinitions = {
     default: {
@@ -66,7 +64,6 @@ await initializeDropin(async () => {
     return;
   }
 
-  // Initialize order
   await initializers.mountImmediately(initialize, {
     langDefinitions,
     orderRef,

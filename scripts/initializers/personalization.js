@@ -1,12 +1,9 @@
+import { getHeaders } from '@dropins/tools/lib/aem/configs.js';
 import { initializers } from '@dropins/tools/initializer.js';
-import { initialize, setEndpoint } from '@dropins/storefront-personalization/api.js';
+import { initialize, setFetchGraphQlHeaders } from '@dropins/storefront-personalization/api.js';
 import { initializeDropin } from './index.js';
-import { CORE_FETCH_GRAPHQL } from '../commerce.js';
 
 await initializeDropin(async () => {
-  // Set Fetch GraphQL (Catalog Service)
-  setEndpoint(CORE_FETCH_GRAPHQL);
-
-  // Initialize personalization
+  setFetchGraphQlHeaders((prev) => ({ ...prev, ...getHeaders('cart') }));
   return initializers.mountImmediately(initialize, {});
 })();

@@ -1,7 +1,7 @@
 import { FunctionComponent, VNode } from 'preact';
 import { HTMLAttributes } from 'preact/compat';
 
-export interface RadioButtonProps extends Omit<HTMLAttributes<HTMLInputElement>, 'size' | 'label' | 'icon'> {
+export interface RadioButtonProps extends Omit<HTMLAttributes<HTMLInputElement>, 'size' | 'label'> {
     label: string | VNode<HTMLAttributes<HTMLElement>>;
     name: string;
     value: string;
@@ -11,7 +11,6 @@ export interface RadioButtonProps extends Omit<HTMLAttributes<HTMLInputElement>,
     error?: boolean;
     description?: string;
     busy?: boolean;
-    icon?: VNode<HTMLAttributes<SVGSVGElement>> | VNode<HTMLAttributes<HTMLImageElement>>;
 }
 export declare const RadioButton: FunctionComponent<RadioButtonProps>;
 //# sourceMappingURL=RadioButton.d.ts.map

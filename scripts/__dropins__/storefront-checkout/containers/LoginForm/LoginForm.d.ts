@@ -23,11 +23,6 @@ export interface LoginFormProps extends HTMLAttributes<HTMLFormElement>, TitlePr
         Heading?: SlotProps<{
             authenticated: boolean;
         }>;
-        Preferences?: SlotProps<{
-            email: string;
-            isEmailValid: boolean;
-            isAuthenticated: boolean;
-        }>;
     } & TitleProps['slots'];
 }
 export declare const LoginForm: Container<LoginFormProps>;

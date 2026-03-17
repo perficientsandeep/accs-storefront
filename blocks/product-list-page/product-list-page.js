@@ -48,10 +48,9 @@ export default async function decorate(block) {
   block.innerHTML = '';
   block.appendChild(fragment);
 
-  // Add url path back to the block for enrichment, incase enrichment block is
-  // executed after the plp block and block config is not available
+  // Add category url path to block for enrichment
   if (config.urlpath) {
-    block.dataset.urlpath = config.urlpath;
+    block.dataset.category = config.urlpath;
   }
 
   // Get variables from the URL
@@ -249,14 +248,12 @@ function getFilterFromParams(filterParam) {
   filters.forEach((filter) => {
     if (filter.includes(':')) {
       const [attribute, value] = filter.split(':');
-      const commaRegex = /,(?!\s)/;
 
-      if (commaRegex.test(value)) {
-        // Handle array values like categories,
-        // but allow for commas within an array value (eg. "Catalog, Search")
+      if (value.includes(',')) {
+        // Handle array values (like categories)
         results.push({
           attribute,
-          in: value.split(commaRegex),
+          in: value.split(','),
         });
       } else if (value.includes('-')) {
         // Handle range values (like price)

@@ -14,8 +14,8 @@ export interface OrderItemProps {
     quantity_ordered?: number;
     quantity_shipped?: number;
     quantity_invoiced?: number;
-    product_url_key: string;
-    product_sku: string;
+    url_key: string;
+    sku: string;
     status: string;
     product_name: string;
     id: string;

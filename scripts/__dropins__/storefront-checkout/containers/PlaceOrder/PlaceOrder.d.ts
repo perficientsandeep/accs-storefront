@@ -12,7 +12,7 @@ export interface HandlePlaceOrderContext {
 export interface PlaceOrderProps extends HTMLAttributes<HTMLDivElement> {
     disabled?: boolean;
     active?: boolean;
-    handleValidation?: () => boolean | Promise<boolean>;
+    handleValidation?: () => boolean;
     handlePlaceOrder: (ctx: HandlePlaceOrderContext) => Promise<void>;
     slots?: {
         Content?: SlotProps<ContentSlotContext>;

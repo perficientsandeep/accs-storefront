@@ -28,6 +28,4 @@ export * from './confirmEmail';
 export * from './resendConfirmationEmail';
 export * from './createCustomerAddress';
 export * from './verifyToken';
-export * from './getCustomerRolePermissions';
-export * from './getAdobeCommerceOptimizerData';
 //# sourceMappingURL=index.d.ts.map

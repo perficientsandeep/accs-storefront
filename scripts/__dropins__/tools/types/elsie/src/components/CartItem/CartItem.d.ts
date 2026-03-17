@@ -6,7 +6,6 @@ export interface CartItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'tit
     image?: VNode;
     title?: VNode;
     price?: VNode;
-    rowTotalFooter?: VNode;
     taxIncluded?: boolean;
     taxExcluded?: boolean;
     total?: VNode;

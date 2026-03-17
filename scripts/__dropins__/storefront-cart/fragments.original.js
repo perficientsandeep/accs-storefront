@@ -1,4 +1,4 @@
-/*! Copyright 2026 Adobe
+/*! Copyright 2025 Adobe
 All Rights Reserved. */
 const e=`
   fragment PRICE_RANGE_FRAGMENT on PriceRange {

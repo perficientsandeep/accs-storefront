@@ -1,13 +1,12 @@
+import { getHeaders } from '@dropins/tools/lib/aem/configs.js';
 import { initializers } from '@dropins/tools/initializer.js';
-import { initialize, setEndpoint } from '@dropins/storefront-account/api.js';
+import { initialize, setFetchGraphQlHeaders } from '@dropins/storefront-account/api.js';
 import { initializeDropin } from './index.js';
-import { CORE_FETCH_GRAPHQL, fetchPlaceholders } from '../commerce.js';
+import { fetchPlaceholders } from '../commerce.js';
 
 await initializeDropin(async () => {
-  // Set Fetch GraphQL (Core)
-  setEndpoint(CORE_FETCH_GRAPHQL);
+  setFetchGraphQlHeaders((prev) => ({ ...prev, ...getHeaders('account') }));
 
-  // Fetch placeholders
   const labels = await fetchPlaceholders('placeholders/account.json');
   const langDefinitions = {
     default: {
@@ -15,6 +14,5 @@ await initializeDropin(async () => {
     },
   };
 
-  // Initialize account
   return initializers.mountImmediately(initialize, { langDefinitions });
 })();
